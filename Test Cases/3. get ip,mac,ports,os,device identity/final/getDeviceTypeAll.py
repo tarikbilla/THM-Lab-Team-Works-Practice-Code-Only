@@ -10,7 +10,7 @@ SEEN = {}
 def load_oui_data():
     oui = {}
     if not os.path.exists(OUI_FILE):
-        print("[!] OUI file not found.")
+        print("OUI file not found.")
         return oui
     with open(OUI_FILE, "r", encoding="utf-8", errors="ignore") as f:
         for line in f:
