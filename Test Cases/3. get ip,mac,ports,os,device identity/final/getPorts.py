@@ -10,7 +10,7 @@ def scan_port(target_ip):
     print(f"Starting scan on {target_ip}...\n")
     print(f"{'PORT':<10} {'STATE':<10} SERVICE")
 
-    for port in range(1, 65536):
+    for port in range(1, 10000): #65536
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(0.01)
@@ -24,7 +24,6 @@ def scan_port(target_ip):
 
     print("\nScan completed.")
 
-# input ip
-target_ip = input("Enter IP address: ")
-scan_port(target_ip)
-
+if __name__ == "__main__":
+    target_ip = input("Enter IP address: ")
+    scan_port(target_ip)

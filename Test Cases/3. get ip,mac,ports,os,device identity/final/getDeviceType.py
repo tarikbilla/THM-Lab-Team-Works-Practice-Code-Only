@@ -1,36 +1,9 @@
-import os
 import socket
 import subprocess
 import re
 
-OUI_FILE = "oui.txt"
-
-def load_oui():
-    vendors = {}
-    if not os.path.exists(OUI_FILE):
-        print("OUI file not found.")
-        return vendors
-    with open(OUI_FILE, "r", encoding="utf-8", errors="ignore") as f:
-        for line in f:
-            if "(hex)" in line:
-                parts = line.strip().split()
-                if len(parts) >= 3:
-                    mac = parts[0].replace("-", ":").upper()
-                    vendor = " ".join(parts[2:])
-                    vendors[mac] = vendor
-    return vendors
-
-def get_mac(ip):
-    try:
-        subprocess.run(["ping", "-c", "1", ip], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        output = subprocess.check_output(["arp", "-n", ip]).decode()
-        match = re.search(r"(([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2})", output)
-        return match.group(1).upper() if match else None
-    except:
-        return None
-
-def get_vendor(mac, vendors):
-    return vendors.get(":".join(mac.split(":")[:3]).upper(), "Unknown")
+import getPorts, findMacAddress
+from findVendor import get_vendor
 
 def scan_ports(ip):
     ports = [554, 8008, 88, 443, 22, 80, 81, 23, 8080, 34567]
@@ -66,14 +39,12 @@ def guess_type(vendor, ports, ttl):
     return "Unknown"
 
 def detect(ip):
-    vendors = load_oui()
-    mac = get_mac(ip)
+    mac = findMacAddress.get_mac(ip).upper()
     if not mac:
-        print("MAC Address: Not found")
         print("Device Type: Unknown")
         return
 
-    vendor = get_vendor(mac, vendors)
+    vendor = get_vendor(mac)
     ttl = get_ttl(ip)
     ports = scan_ports(ip)
     dtype = guess_type(vendor, ports, ttl)
