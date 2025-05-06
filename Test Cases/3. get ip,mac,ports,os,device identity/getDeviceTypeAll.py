@@ -29,7 +29,17 @@ def get_vendor(mac, oui):
 # Scan common ports on device
 def scan_ports(ip):
     open_ports = []
-    common_ports = [80, 443, 554, 8008, 22, 23]
+    common_ports = [
+    554, 34567, 8000,  # Camera ports
+    8008, 1900, 443,   # TV ports
+    62078, 8888, 5228, 5222,  # Mobile ports
+    22, 23,  # Raspberry Pi, Telnet
+    433, 8883,  # Smart Plug ports
+    1883, 8883,  # Smart Thermostat ports
+    9999,  # Smart Lights port
+    3389,  # Laptop RDP port
+    5683,  # IoT Device CoAP port
+    ]
     for port in common_ports:
         try:
             s = socket.socket()

@@ -1,4 +1,3 @@
-
 import os
 import scapy.all as scapy
 
@@ -12,9 +11,9 @@ def scan_network(ip):
     #lement[1].psrc retrieves the source IP address
     return [element[1].psrc for element in answered_list]
 
-# gateway_ip = "172.24.41.1/24"
 response = os.popen("ip route").read()
 gateway_ip = response.split()[2] + "/24"
+# gateway_ip = "172.24.41.1/24"
 print(f"Getway IP: {gateway_ip}\n")
 
 ips = scan_network(gateway_ip)
