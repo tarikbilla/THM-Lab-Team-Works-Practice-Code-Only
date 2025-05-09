@@ -7,30 +7,30 @@ def run(cmd):
         return ""
 
 def nmap_os(ip):
-    print("1. Nmap OS detection...")
+    # print("1. Nmap OS detection...")
     out = run(f"sudo nmap -O {ip}")
     m = re.search(r"(OS details:.*|Running:.*)", out)
     return m.group(0) if m else None
 
 def snmp_os(ip):
-    print("2. SNMP check...")
+    # print("2. SNMP check...")
     out = run(f"snmpget -v 2c -c public {ip} 1.3.6.1.2.1.1.1.0")
     return f"SNMP: {out}" if out else None
 
 def xprobe2_os(ip):
-    print("3. xprobe2 OS ...")
+    # print("3. xprobe2 OS ...")
     out = run(f"xprobe2 {ip}")
     m = re.search(r"Operating system: (.+)", out)
     return f"xprobe2: {m.group(1)}" if m else None
 
 def ttl_os_guess(ip):
-    print("4. TTL OS Guess...")
+    # print("4. TTL OS Guess...")
     out = run(f"ping -c 1 {ip}")
     ttl = re.search(r"ttl=(\d+)", out)
     if ttl:
         val = int(ttl.group(1))
         guess = "Windows" if val >= 120 else "Linux/Unix" if val <= 64 else "Unknown"
-        return f"Possible OS: {guess}"
+        return f" OS: {guess}"
     return None
 
 def detect_os(ip):

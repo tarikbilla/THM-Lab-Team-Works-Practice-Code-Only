@@ -12,9 +12,7 @@ def scan_ports(target_ip):
             sock.close()
         except:
             pass
-
     return open_ports
-
 
 
 def get_service(port):
