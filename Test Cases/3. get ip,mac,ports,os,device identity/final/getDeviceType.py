@@ -5,12 +5,12 @@ import findVendor
 
 # Load the JSON file containing device data
 def load_device_data():
-    with open('device_ports.json', 'r') as file:
+    with open('device_type_database.json', 'r') as file:
         data = json.load(file)
     return data
 
 # Function to check device type based on ports
-def guess_type(ports):
+def guess_type(vendor, ports):
     data = load_device_data()
 
     for device in data['devices']:

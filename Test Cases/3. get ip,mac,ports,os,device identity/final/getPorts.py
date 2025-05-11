@@ -21,7 +21,7 @@ def get_service(port):
     except:
         return 'Unknown Port'
 
-def scan_port_withServices(_target_ip):
+def scan_port_withServices(target_ip):
     print(f"Starting scan on {target_ip}...\n")
     print(f"{'PORT':<10} {'STATE':<10} SERVICE")
 

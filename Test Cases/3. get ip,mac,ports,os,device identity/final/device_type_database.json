@@ -22,11 +22,11 @@
       },
       {
         "device_type": "Smart Lights",
-        "ports": [443, 9999]
+        "ports": [9999]
       },
       {
         "device_type": "Smart Security System",
-        "ports": [443, 554]
+        "ports": [554]
       },
       {
         "device_type": "IoT Device",

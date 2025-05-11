@@ -1,4 +1,4 @@
-import getDefaultGetway
+# import allIP
 import findMacAddress
 import findVendor
 import getPorts
@@ -25,6 +25,7 @@ if __name__ == "__main__":
 
     ports = getPorts.scan_ports(ip)
     print(f"Open Ports: {ports}")
+    # getPorts.scan_port_withServices(ip)
     
-    dtype = getDeviceType.guess_type(vendor, ports, ttl)
+    dtype = getDeviceType.guess_type(vendor, ports)
     print(f"Device Type: {dtype}")
